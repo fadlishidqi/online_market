@@ -36,4 +36,15 @@
     .no-scrollbar {
         -ms-overflow-style: none;
     }
+
+    /* Animasi Berkedip */
+    @keyframes blink {
+        50% {
+            opacity: 0;
+        }
+    }
+
+    .blink {
+        animation: blink 1s steps(5, start) infinite;
+    }
 }

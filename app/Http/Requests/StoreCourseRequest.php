@@ -27,6 +27,7 @@ class StoreCourseRequest extends FormRequest
             'about' => 'required|string',
             'category_id' => 'required|integer',
             'thumbnail' => 'required|image|mimes:jpg,jpeg,png,svg',
+            'price' => 'required|integer',
             'course_keypoints.*' => 'required|string|max:255',
         ];
     }

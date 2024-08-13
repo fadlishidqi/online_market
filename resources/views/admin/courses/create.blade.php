@@ -33,6 +33,12 @@
                     </div>
 
                     <div class="mt-4">
+                        <x-input-label for="price" :value="__('Price')" />
+                        <x-text-input id="price" class="block mt-1 w-full" type="text" name="price" required autofocus autocomplete="price" />
+                        <x-input-error :messages="$errors->get('price')" class="mt-2" />
+                    </div>
+
+                    <div class="mt-4">
                         <x-input-label for="path_trailer" :value="__('path_trailer')" />
                         <x-text-input id="path_trailer" class="block mt-1 w-full" type="text" name="path_trailer" :value="old('path_trailer')" required autofocus autocomplete="path_trailer" />
                         <x-input-error :messages="$errors->get('path_trailer')" class="mt-2" />

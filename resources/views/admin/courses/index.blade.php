@@ -21,7 +21,8 @@
                         object-cover w-[70px] h-[70px]">
                         <div class="flex flex-col">
                             <h3 class="text-indigo-950 text-xl font-bold">{{$course->name}}</h3>
-                            <p class="text-slate-500 text-sm">{{$course->category->name}}</p>
+                            <p class="text-slate-500 text-sm font-semibold">{{$course->category->name}}</p>
+                            <p class="text-slate-700 text-sm font-semibold">Rp. {{ number_format($course->price, 0, ',', '.') }}</p>
                         </div>
                     </div>
                     <div class="hidden md:flex flex-col">

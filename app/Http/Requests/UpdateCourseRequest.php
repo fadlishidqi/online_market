@@ -27,6 +27,7 @@ class UpdateCourseRequest extends FormRequest
             'about' => 'required|string',
             'category_id' => 'required|integer',
             'thumbnail' => 'sometimes|image|mimes:jpg,jpeg,png,svg',
+            'price' => 'required|integer',
             'course_keypoints.*' => 'required|string|max:255',
         ];
     }

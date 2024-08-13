@@ -56,7 +56,7 @@ class TeacherController extends Controller
             
             Teacher::create($validated);
 
-            if(!$user->hasRole('student')){
+            if($user->hasRole('student')){
                 $user->removeRole('student');
             }
 

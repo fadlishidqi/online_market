@@ -171,39 +171,51 @@
 
                 @forelse($courses as $course)
                 <div class="course-card w-1/3 px-3 pb-[70px] mt-[2px]">
-                    <div class="flex flex-col rounded-t-[12px] rounded-b-[24px] gap-[32px] bg-white w-full pb-[10px] overflow-hidden transition-all duration-300 hover:ring-2 hover:ring-[#FF6129]">
-                        <a href="{{route('front.details', $course->slug)}}" class="thumbnail w-full h-[200px] shrink-0 rounded-[10px] overflow-hidden">
-                            <img src="{{Storage::url($course->thumbnail)}}" class="w-full h-full object-cover" alt="thumbnail">
+                    <div class="flex flex-col rounded-t-[12px] rounded-b-[24px] gap-[30px] bg-white w-full pb-[10px] overflow-hidden transition-all duration-300 hover:ring-2 hover:ring-[#FF6129]">
+                        <a href="{{ route('front.details', $course->slug) }}" class="thumbnail w-full h-[200px] shrink-0 rounded-[10px] overflow-hidden">
+                            <img src="{{ Storage::url($course->thumbnail) }}" class="w-full h-full object-cover" alt="thumbnail">
                         </a>
                         <div class="flex flex-col px-4 gap-[10px]">
-                            <a href="{{route('front.details', $course->slug)}}" class="font-semibold text-lg line-clamp-2 hover:line-clamp-none min-h-[56px]">{{$course->name}}</a>
+                            <a href="{{ route('front.details', $course->slug) }}" class="font-semibold text-lg line-clamp-2 hover:line-clamp-none min-h-[40px]">{{ $course->name }}</a>
+                            
+                            <!-- Tambahkan harga asli dan diskon di sini -->
+                            <div class="flex items-center gap-2">
+                                <p class="text-lg line-through" style="color: red; text-decoration: line-through; animation: blink 1s steps(5, start) infinite;">Rp. {{ number_format($course->price * 2, 0, ',', '.') }}</p>
+                                <p class="text-lg font-semibold" style="color: rgb(7, 141, 7);">Rp. {{ number_format($course->price, 0, ',', '.') }}</p>
+                            </div>
+
+                            <style>
+                                @keyframes blink {
+                                    0%, 100% {
+                                        opacity: 1;
+                                    }
+                                    50% {
+                                        opacity: 0;
+                                    }
+                                }
+                            
+                                .blink {
+                                    animation: blink 1s linear infinite;
+                                }
+                            </style>                            
+                                
                             <div class="flex justify-between items-center">
                                 <div class="flex items-center gap-[2px]">
-                                    <div>
-                                        <img src="assets/icon/star.svg" alt="star">
-                                    </div>
-                                    <div>
-                                        <img src="assets/icon/star.svg" alt="star">
-                                    </div>
-                                    <div>
-                                        <img src="assets/icon/star.svg" alt="star">
-                                    </div>
-                                    <div>
-                                        <img src="assets/icon/star.svg" alt="star">
-                                    </div>
-                                    <div>
-                                        <img src="assets/icon/star.svg" alt="star">
-                                    </div>
+                                    @for ($i = 0; $i < 5; $i++)
+                                        <div>
+                                            <img src="assets/icon/star.svg" alt="star">
+                                        </div>
+                                    @endfor
                                 </div>
-                                <p class="text-right text-[#6D7786]">{{$course->students->count()}} students</p>
+                                <p class="text-right text-[#6D7786]">{{ $course->students->count() }} students</p>
                             </div>
                             <div class="flex items-center gap-2">
                                 <div class="w-8 h-8 flex shrink-0 rounded-full overflow-hidden">
-                                    <img src="{{Storage::url($course->teacher->user->avatar)}}" class="w-full h-full object-cover" alt="icon">
+                                    <img src="{{ Storage::url($course->teacher->user->avatar) }}" class="w-full h-full object-cover" alt="icon">
                                 </div>
                                 <div class="flex flex-col">
-                                    <p class="font-semibold">{{$course->teacher->user->name}}</p>
-                                    <p class="text-[#6D7786]">{{$course->teacher->user->occupation}}</p>
+                                    <p class="font-semibold">{{ $course->teacher->user->name }}</p>
+                                    <p class="text-[#6D7786]">{{ $course->teacher->user->occupation }}</p>
                                 </div>
                             </div>
                         </div>
@@ -212,6 +224,7 @@
                 @empty
                 <p>Coming Soon</p>
                 @endforelse
+
             </div>
         </div>
     </section>
