@@ -12,8 +12,8 @@
     <div id="hero-section" class="max-w-[1200px] mx-auto w-full flex flex-col gap-10 pb-[50px] bg-[url('assets/background/Hero-Banner.png')] bg-center bg-no-repeat bg-cover rounded-[32px] overflow-hidden">
         <nav class="flex justify-between items-center pt-6 px-[50px]">
             <a href="">
-                <img src="assets/logo/logo.svg" alt="logo">
-            </a>
+                <img src="assets/logo/ditech.png" alt="logo" style="width: 200px; height: 74px;">
+            </a>                        
             <ul class="flex items-center gap-[30px] text-white">
                 <li>
                     <a href="{{route('front.index')}}" class="font-semibold">Home</a>
@@ -60,9 +60,9 @@
                 <p class="font-semibold text-sm text-white">Join 3 million users</p>
             </div>
             <div class="flex flex-col gap-[10px]">
-                <h1 class="font-semibold text-[80px] leading-[82px] text-center gradient-text-hero">Build Future Career.</h1>
-                <p class="text-center text-xl leading-[36px] text-[#F5F8FA]">Alqowy provides high quality online courses for you to grow <br>
-                    your skills and build outstanding portfolio to tackle job interviews</p>
+                <h1 class="font-semibold text-[80px] leading-[82px] text-center gradient-text-hero">Build Career Journey</h1>
+                <p class="text-center text-xl leading-[36px] text-[#F5F8FA]">Ditech menawarkan Online Course dan E-book yang berkualitas, dirancang <br>
+                    untuk membantu anda meningkatkan soft skill dan membangun portofolio yang bagus.</p>
             </div>
             <div class="flex gap-6 w-fit">
                 <a href="" class="text-white font-semibold rounded-[30px] p-[16px_32px] bg-[#FF6129] transition-all duration-300 hover:shadow-[0_10px_20px_0_#FF612980]">Explore Courses</a>
@@ -845,7 +845,7 @@
             </div>
         </div>
         <div class="w-full h-[51px] flex items-end border-t border-[#E7EEF2]">
-            <p class="mx-auto text-sm text-[#6D7786] -tracking-[2%]">All Rights Reserved Alqowy BuildWithAngga 2024</p>
+            <p class="mx-auto text-sm text-[#6D7786] -tracking-[2%]">Dibuat dan Dirawat oleh IT Firdaus Family 2024 | Menyala Abangkuu 🔥🔥🔥</p>
         </div>
     </footer>
 
