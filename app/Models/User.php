@@ -54,21 +54,21 @@ class User extends Authenticatable
         return $this->belongsToMany(Course::class, 'course_students');
     }
 
-    public function subsribe_transactions(){
+    public function subscribe_transactions(){
         return $this->hasMany(SubscribeTransaction::class);
     }
 
     public function hasActiveSubscription(){
-        $latestSubscription = $this->subsribe_transactions
+        $latestSubscription = $this->subscribe_transactions()
         ->where('is_paid', true)
         ->latest('updated_at')
         ->first();
 
-        if($latestSubscription){
+        if(!$latestSubscription){
             return false;
         }
 
-        $subsriptionEndDate = Carbon::parse($latestSubscription->subscription_start_date)->addMonth(1);
-        return Carbon::now()->lessThanOrEqualTo($subsriptionEndDate); //true == dia berlangganan
+        $subscriptionEndDate = Carbon::parse($latestSubscription->subscription_start_date)->addMonth(1);
+        return Carbon::now()->lessThanOrEqualTo($subscriptionEndDate); //true == dia berlangganan
     }
 }

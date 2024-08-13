@@ -15,6 +15,27 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+
+                    @role('owner|teacher')
+                    <x-nav-link :href="route('admin.courses.index')" :active="request()->routeIs('admin.courses.index')">
+                        {{ __('Materi') }}
+                    </x-nav-link>
+                    @endrole
+
+                    @role('owner')
+                    <x-nav-link :href="route('admin.categories.index')" :active="request()->routeIs('admin.categories.index')">
+                        {{ __('Kategori') }}
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('admin.teachers.index')" :active="request()->routeIs('admin.teachers.index')">
+                        {{ __('Guru') }}
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('admin.subscribe_transactions.index')" :active="request()->routeIs('admin.subscribe_transactions.index')">
+                        {{ __('Pembayaran') }}
+                    </x-nav-link>
+                    @endrole
+
                 </div>
             </div>
 
