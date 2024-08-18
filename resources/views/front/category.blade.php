@@ -3,21 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="./output.css" rel="stylesheet">
+  <link href="{{asset('css/output.css')}}" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 </head>
 <body class="text-black font-poppins pt-10 pb-[50px]">
     <div id="hero-section" class="max-w-[1200px] mx-auto w-full flex flex-col gap-10 bg-[url('assets/background/Hero-Banner.png')] bg-center bg-no-repeat bg-cover rounded-[32px] overflow-hidden">
         <nav class="flex justify-between items-center py-6 px-[50px]">
             <a href="index.html">
-                <img src="assets/logo/logo.svg" alt="logo">
+                <img src="{{asset('assets/logo/ditech.png')}}" alt="logo" style="width: 200px; height: 74px;">
             </a>
             <ul class="flex items-center gap-[30px] text-white">
                 <li>
-                    <a href="" class="font-semibold">Home</a>
+                    <a href="{{route('front.index')}}" class="font-semibold">Home</a>
                 </li>
                 <li>
-                    <a href="pricing.html" class="font-semibold">Pricing</a>
+                    <a href="{{route('front.pricing')}}" class="font-semibold">Pricing</a>
                 </li>
                 <li>
                     <a href="" class="font-semibold">Benefits</a>
@@ -36,7 +36,7 @@
         <div class="flex flex-col gap-[30px]">
             <div class="gradient-badge w-fit p-[8px_16px] rounded-full border border-[#FED6AD] flex items-center gap-[6px]">
                 <div>
-                    <img src="assets/icon/medal-star.svg" alt="icon">
+                    <img src="{{asset('assets/icon/medal-star.svg')}}" alt="icon">
                 </div>
                 <p class="font-medium text-sm text-[#FF6129]">Top Categories</p>
             </div>

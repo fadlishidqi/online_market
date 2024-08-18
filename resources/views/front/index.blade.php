@@ -91,7 +91,7 @@
         <div class="flex flex-col gap-[30px]">
             <div class="gradient-badge w-fit p-[8px_16px] rounded-full border border-[#FED6AD] flex items-center gap-[6px]">
                 <div>
-                    <img src="assets/icon/medal-star.svg" alt="icon">
+                    <img src="{{asset('assets/icon/medal-star.svg')}}" alt="icon">
                 </div>
                 <p class="font-medium text-sm text-[#FF6129]">Top Categories</p>
             </div>
@@ -101,7 +101,7 @@
             </div>
         </div>
         <div class="grid grid-cols-4 gap-[30px]">
-            <a href="{{route('front.category', 'design-graphic')}}" class="card flex items-center p-4 gap-3 ring-1 ring-[#DADEE4] rounded-2xl hover:ring-2 hover:ring-[#FF6129] transition-all duration-300">
+            <a href="{{route('front.category', 'muti')}}" class="card flex items-center p-4 gap-3 ring-1 ring-[#DADEE4] rounded-2xl hover:ring-2 hover:ring-[#FF6129] transition-all duration-300">
                 <div class="w-[70px] h-[70px] flex shrink-0">
                     <img src="assets/icon/Web Development 1.svg" class="object-contain" alt="icon">
                 </div>

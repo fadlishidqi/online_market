@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Course;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,6 +13,13 @@ class FrontController extends Controller
 
         $courses = Course::with(['category', 'teacher', 'students'])->orderByDesc('id')->get();
         return view('front.index', compact('courses'));
+    }
+
+    public function category(Category $category){
+        // Ambil data kursus berdasarkan kategori
+        $courses = Course::where('category_id', $category->id)->get();
+    
+        return view('front.category', compact('courses', 'category'));
     }
 
     public function details(Course $course){
