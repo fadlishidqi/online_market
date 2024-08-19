@@ -39,9 +39,9 @@
             <div class="flex gap-[10px] items-center">
                 <div class="flex flex-col items-end justify-center">
                     <p class="font-semibold text-white">{{Auth::user()->name}}</p>
-                    @if(Auth::user()->hasActiveSubscription())
-                    <p class="p-[2px_10px] rounded-full bg-[#FF6129] font-semibold text-xs text-white text-center">PRO</p>
-                    @endif
+                    
+                    {{-- <p class="p-[2px_10px] rounded-full bg-[#FF6129] font-semibold text-xs text-white text-center">PRO</p> --}}
+                 
                 </div>
                 <div class="w-[56px] h-[56px] overflow-hidden rounded-full flex shrink-0">
                     <a href="{{route('dashboard')}}">
@@ -95,8 +95,7 @@
                         </a>
                     </div>
                     @empty
-                    @endforelse
-                   
+                    @endforelse          
                 </div>
             </div>
         </div>
@@ -129,6 +128,13 @@
                     </div>
                     <p class="font-semibold">Job-Guarantee</p>
                 </div>
+                <div class="p-4 flex justify-center">
+                    @if (!$hasPaid)
+                        <a href="{{ route('front.checkout', $course->id) }}" class="px-8 py-3 text-black font-bold rounded-full transition duration-300">
+                            Checkout
+                        </a>
+                    @endif
+                </div>                
             </div>
         </div>
         <div class="max-w-[1100px] w-full mx-auto mt-10 tablink-container flex gap-3 px-4 sm:p-0 no-scrollbar overflow-x-scroll">
@@ -242,7 +248,6 @@
                                     <p class="text-sm text-[#6D7786]">44 earned</p>
                                 </div>
                             </div>
-                            
                         </div>
                     </div>
                 </div>

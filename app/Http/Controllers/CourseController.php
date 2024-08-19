@@ -7,9 +7,11 @@ use App\Http\Requests\UpdateCourseRequest;
 use App\Models\Category;
 use App\Models\Course;
 use App\Models\Teacher;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class CourseController extends Controller
@@ -132,6 +134,33 @@ class CourseController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->route('admin.courses.index')->with('error', 'Data gagal dihapus');
+        }
+    }
+
+    public function updatePaymentStatus(Request $request, Course $course)
+    {
+        Log::info('Request data:', $request->all());
+
+        try {
+            if ($request->status === 'success') {
+                $user = User::findOrFail($request->user_id);
+                Log::info('User found:', ['user_id' => $user->id]);
+
+                if ($user->courses()->where('course_id', $course->id)->exists()) {
+                    Log::info('Updating existing pivot record');
+                    $user->courses()->updateExistingPivot($course->id, ['is_paid' => true]);
+                } else {
+                    Log::info('Attaching new pivot record');
+                    $user->courses()->attach($course->id, ['is_paid' => true]);
+                }
+
+                Log::info('Data stored successfully');
+            }
+
+            return response()->json(['message' => 'Payment status updated successfully.']);
+        } catch (\Exception $e) {
+            Log::error('Error updating payment status: ' . $e->getMessage());
+            return response()->json(['error' => 'Something went wrong'], 500);
         }
     }
 }

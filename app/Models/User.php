@@ -51,24 +51,8 @@ class User extends Authenticatable
     }
 
     public function courses(){
-        return $this->belongsToMany(Course::class, 'course_students');
-    }
-
-    public function subscribe_transactions(){
-        return $this->hasMany(SubscribeTransaction::class);
-    }
-
-    public function hasActiveSubscription(){
-        $latestSubscription = $this->subscribe_transactions()
-        ->where('is_paid', true)
-        ->latest('updated_at')
-        ->first();
-
-        if(!$latestSubscription){
-            return false;
-        }
-
-        $subscriptionEndDate = Carbon::parse($latestSubscription->subscription_start_date)->addMonth(1);
-        return Carbon::now()->lessThanOrEqualTo($subscriptionEndDate); //true == dia berlangganan
+        return $this->belongsToMany(Course::class, 'course_user')
+            ->withPivot('is_paid')
+            ->withTimestamps();
     }
 }

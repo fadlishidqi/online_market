@@ -38,9 +38,9 @@
             <div class="flex gap-[10px] items-center">
                 <div class="flex flex-col items-end justify-center">
                     <p class="font-semibold text-white">{{Auth::user()->name}}</p>
-                    @if(Auth::user()->hasActiveSubscription())
-                    <p class="p-[2px_10px] rounded-full bg-[#FF6129] font-semibold text-xs text-white text-center">PRO</p>
-                    @endif
+                
+                    {{-- <p class="p-[2px_10px] rounded-full bg-[#FF6129] font-semibold text-xs text-white text-center">PRO</p> --}}
+                 
                 </div>
                 <div class="w-[56px] h-[56px] overflow-hidden rounded-full flex shrink-0">
                     <a href="{{route('dashboard')}}">

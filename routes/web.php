@@ -5,6 +5,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CourseVideoController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FrontController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubscribeTransactionController;
 use App\Http\Controllers\TeacherController;
@@ -22,14 +23,15 @@ Route::middleware('auth')->group(function () {
 
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/checkout', [FrontController::class, 'checkout'])->name('front.checkout')
-    ->middleware('role:student');
-
-    Route::post('/checkout/store', [FrontController::class, 'checkout_store'])->name('front.checkout.store')
-    ->middleware('role:student|teacher|owner');
-
     Route::get('/learning/{course}/{courseVideoId}', [FrontController::class, 'learning'])->name('front.learning')
     ->middleware('role:student');
+
+    Route::get('/checkout/{course}', [FrontController::class, 'checkout'])->name('front.checkout')
+    ->middleware('role:student');;
+
+    Route::post('/payment', [PaymentController::class, 'processPayment'])->name('payment.process');
+
+    Route::post('/course/{course}/update-payment-status', [CourseController::class, 'updatePaymentStatus'])->name('course.updatePaymentStatus');
 
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('categories', CategoryController::class)
@@ -40,9 +42,6 @@ Route::middleware('auth')->group(function () {
 
         Route::resource('courses', CourseController::class)
         ->middleware('role:owner|teacher');
-
-        Route::resource('subscribe_transactions', SubscribeTransactionController::class)
-        ->middleware('role:owner');
 
         Route::get('/add/video/{course:id}', [CourseVideoController::class, 'create'])
         ->middleware('role:owner|teacher')

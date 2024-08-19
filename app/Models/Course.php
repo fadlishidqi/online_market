@@ -40,4 +40,17 @@ class Course extends Model
     public function students(){
         return $this->belongsToMany(User::class, 'course_students');
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'course_user')
+                    ->withPivot('is_paid')
+                    ->withTimestamps();
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
 }

@@ -30,10 +30,6 @@
                     <x-nav-link :href="route('admin.teachers.index')" :active="request()->routeIs('admin.teachers.index')">
                         {{ __('Guru') }}
                     </x-nav-link>
-
-                    <x-nav-link :href="route('admin.subscribe_transactions.index')" :active="request()->routeIs('admin.subscribe_transactions.index')">
-                        {{ __('Pembayaran') }}
-                    </x-nav-link>
                     @endrole
 
                 </div>

@@ -22,23 +22,44 @@ class FrontController extends Controller
         return view('front.category', compact('courses', 'category'));
     }
 
-    public function details(Course $course){
-        return view('front.details', compact('course'));
+    public function details(Course $course)
+    {
+        $user = Auth::user();
+
+        // Periksa apakah user sudah membayar kursus ini
+        $hasPaid = $user->courses()
+                        ->where('course_id', $course->id)
+                        ->wherePivot('is_paid', true)
+                        ->exists();
+
+        return view('front.details', compact('course', 'hasPaid'));
     }
+
 
     public function pricing(){
         return view('front.pricing');
     }
 
-    public function learning(Course $course, $courseVideoId){
+    public function learning(Course $course, $courseVideoId)
+    {
         $user = Auth::user();
 
-        if(!$user->hasActiveSubscription()){
-            return redirect()->route('front.pricing');
+        $hasAccess = $user->courses()->where('course_id', $course->id)->wherePivot('is_paid', true)->exists();
+
+        if (!$hasAccess) {
+            return redirect()->route('front.checkout', $course->id)->with('error', 'Anda harus membayar kursus ini untuk mengakses materi.');
         }
 
-        $video = $course->course_videos->firstWhere('id', $courseVideoId);
-        $user->courses()->syncWithoutDetaching($course->id);
+        $video = $course->course_videos()->findOrFail($courseVideoId);
+
         return view('front.learning', compact('course', 'video'));
+    }
+
+
+    public function checkout($courseId)
+    {
+        $course = Course::findOrFail($courseId);
+         
+        return view('front.checkout', compact('course'));
     }
 }

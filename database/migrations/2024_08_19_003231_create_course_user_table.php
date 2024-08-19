@@ -11,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('subscribe_transactions', function (Blueprint $table) {
+        Schema::create('course_user', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('total_amount');
-            $table->boolean('is_paid');
-            $table->date('subscription_start_date')->nullable();
-            $table->string('proof');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->softDeletes();
+            $table->foreignId('course_id')->constrained()->onDelete('cascade');
+            $table->boolean('is_paid')->default(false);
             $table->timestamps();
         });
     }
@@ -28,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('subscribe_transactions');
+        Schema::dropIfExists('course_user');
     }
 };

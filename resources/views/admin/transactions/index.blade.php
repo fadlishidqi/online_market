@@ -40,7 +40,7 @@
                         <h3 class="text-indigo-950 text-xl font-bold">{{$transaction->user->name}}</h3>
                     </div>
                     <div class="hidden md:flex flex-row items-center gap-x-3">
-                        <a href="{{route('admin.subscribe_transactions.show', $transaction)}}" class="font-bold py-4 px-6 bg-indigo-700 text-white rounded-full">
+                        <a href="#" class="font-bold py-4 px-6 bg-indigo-700 text-white rounded-full">
                             View Details
                         </a>
                     </div>

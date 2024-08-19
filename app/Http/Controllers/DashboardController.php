@@ -21,9 +21,9 @@ class DashboardController extends Controller
 
         // Menghitung jumlah kategori, transaksi, dan guru
         $categories = Category::count();
-        $transactions = SubscribeTransaction::count();
+        
         $teachers = Teacher::count();
 
-        return view('dashboard', compact('categories', 'courses', 'transactions', 'students', 'teachers'));
+        return view('dashboard', compact('categories', 'courses', 'students', 'teachers'));
     }
 }
