@@ -17,8 +17,7 @@
                 <div class="item-card rounded-lg">
                     <div class="grid grid-cols-12 gap-4 items-center">
                         <div class="col-span-1">
-                            <img src="{{Storage::url($category->icon)}}" alt="" class="rounded-2xl 
-                            object-cover w-[70px] h-[70px]">
+                            <img src="{{Storage::url($category->icon)}}" alt="" class="rounded-2xl object-cover w-[70px] h-[70px]">
                         </div>
                         <div class="col-span-5">
                             <h3 class="text-indigo-950 text-xl font-bold">{{$category->name}}</h3>

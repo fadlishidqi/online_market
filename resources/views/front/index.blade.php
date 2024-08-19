@@ -71,7 +71,7 @@
         </div>
         <div class="flex gap-[70px] items-center justify-center">
             <div>
-                <img src="assets/icon/logo-55.svg" alt="icon">
+                <img src="{{asset('assets/icon/logo')}}" alt="icon">
             </div>
             <div>
                 <img src="assets/icon/logo.svg" alt="icon">
@@ -100,52 +100,15 @@
                 <p class="text-[#6D7786] text-lg -tracking-[2%]">Catching up the on demand skills and high paying career this year</p>
             </div>
         </div>
-        <div class="grid grid-cols-4 gap-[30px]">
-            <a href="{{route('front.category', 'muti')}}" class="card flex items-center p-4 gap-3 ring-1 ring-[#DADEE4] rounded-2xl hover:ring-2 hover:ring-[#FF6129] transition-all duration-300">
-                <div class="w-[70px] h-[70px] flex shrink-0">
-                    <img src="assets/icon/Web Development 1.svg" class="object-contain" alt="icon">
-                </div>
-                <p class="font-bold text-lg">Software Development</p>
-            </a>
-            <a href="category.html" class="card flex items-center p-4 gap-3 ring-1 ring-[#DADEE4] rounded-2xl hover:ring-2 hover:ring-[#FF6129] transition-all duration-300">
-                <div class="w-[70px] h-[70px] flex shrink-0">
-                    <img src="assets/icon/Web Development 1-1.svg" class="object-contain" alt="icon">
-                </div>
-                <p class="font-bold text-lg">Digital Marketing</p>
-            </a>
-            <a href="category.html" class="card flex items-center p-4 gap-3 ring-1 ring-[#DADEE4] rounded-2xl hover:ring-2 hover:ring-[#FF6129] transition-all duration-300">
-                <div class="w-[70px] h-[70px] flex shrink-0">
-                    <img src="assets/icon/Web Development 1-2.svg" class="object-contain" alt="icon">
-                </div>
-                <p class="font-bold text-lg">Business Intelligence</p>
-            </a>
-            <a href="category.html" class="card flex items-center p-4 gap-3 ring-1 ring-[#DADEE4] rounded-2xl hover:ring-2 hover:ring-[#FF6129] transition-all duration-300">
-                <div class="w-[70px] h-[70px] flex shrink-0">
-                    <img src="assets/icon/Web Development 1-3.svg" class="object-contain" alt="icon">
-                </div>
-                <p class="font-bold text-lg">Freelancing Journey</p>
-            </a>
-        </div>
         <div class="grid grid-cols-3 gap-[30px]">
-            <a href="category.html" class="card flex items-center p-4 gap-3 ring-1 ring-[#DADEE4] rounded-2xl hover:ring-2 hover:ring-[#FF6129] transition-all duration-300">
-                <div class="w-[70px] h-[70px] flex shrink-0">
-                    <img src="assets/icon/Web Development 1-1.svg" class="object-contain" alt="icon">
-                </div>
-                <p class="font-bold text-lg">Product & Customer Data Analytics</p>
-            </a>
-            <a href="category.html" class="card flex items-center p-4 gap-3 ring-1 ring-[#DADEE4] rounded-2xl hover:ring-2 hover:ring-[#FF6129] transition-all duration-300">
-                <div class="w-[70px] h-[70px] flex shrink-0">
-                    <img src="assets/icon/Web Development 1-4.svg" class="object-contain" alt="icon">
-                </div>
-                <p class="font-bold text-lg">UX Design <br> Copywriting</p>
-            </a>
-            <a href="category.html" class="card flex items-center p-4 gap-3 ring-1 ring-[#DADEE4] rounded-2xl hover:ring-2 hover:ring-[#FF6129] transition-all duration-300">
-                <div class="w-[70px] h-[70px] flex shrink-0">
-                    <img src="assets/icon/Web Development 1.svg" class="object-contain" alt="icon">
-                </div>
-                <p class="font-bold text-lg">Software Quality Assurance</p>
-            </a>
-        </div>
+            @foreach($categories as $category)
+                <a href="{{ route('front.category', $category->slug) }}" class="card flex items-center p-4 gap-3 ring-1 ring-[#DADEE4] rounded-2xl hover:ring-2 hover:ring-[#FF6129] transition-all duration-300">
+                    <div class="w-[70px] h-[70px] flex shrink-0 overflow-hidden rounded-full">
+                        <img src="{{ Storage::url($category->icon) }}" class="object-cover w-full h-full" alt="{{ $category->name }}">
+                    </div>
+                    <p class="font-bold text-lg">{{ $category->name }}</p>
+                </a>
+            @endforeach
     </section>
     <section id="Popular-Courses" class="max-w-[1200px] mx-auto flex flex-col p-[70px_82px_0px] gap-[30px] bg-[#F5F8FA] rounded-[32px]">
         <div class="flex flex-col gap-[30px] items-center text-center">

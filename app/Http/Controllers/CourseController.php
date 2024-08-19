@@ -130,11 +130,12 @@ class CourseController extends Controller
         try {
             $course->delete();
             DB::commit();
-            return redirect()->route('admin.courses.index');
+            
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->route('admin.courses.index')->with('error', 'Data gagal dihapus');
         }
+        return redirect()->route('admin.courses.index');
     }
 
     public function updatePaymentStatus(Request $request, Course $course)

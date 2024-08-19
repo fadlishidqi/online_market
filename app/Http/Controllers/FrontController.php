@@ -9,15 +9,15 @@ use Illuminate\Support\Facades\Auth;
 
 class FrontController extends Controller
 {
-    public function index(){
-
-        $courses = Course::with(['category', 'teacher', 'students'])->orderByDesc('id')->get();
-        return view('front.index', compact('courses'));
-    }
+    public function index() {
+        $categories = Category::all();
+        $courses = Course::all();
+        return view('front.index', compact('categories', 'courses'));
+    }   
 
     public function category(Category $category){
         // Ambil data kursus berdasarkan kategori
-        $courses = Course::where('category_id', $category->id)->get();
+        $courses = $category->courses()->get();
     
         return view('front.category', compact('courses', 'category'));
     }

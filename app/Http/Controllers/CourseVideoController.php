@@ -38,7 +38,7 @@ class CourseVideoController extends Controller
 
             $courseVideo = CourseVideo::create($validated);
         });
-        return redirect()->route('admin.courses.show', $course->id);
+        return redirect()->route('admin.courses.show', $course->slug);
     }
 
     /**
@@ -67,7 +67,9 @@ class CourseVideoController extends Controller
 
             $courseVideo->update($validated);
         });
-        return redirect()->route('admin.courses.show', $courseVideo->course_id);
+
+        $course = $courseVideo->course; // Mendapatkan course yang terkait dengan video
+        return redirect()->route('admin.courses.show', $course->slug);
     }
 
     /**
@@ -76,14 +78,14 @@ class CourseVideoController extends Controller
     public function destroy(CourseVideo $courseVideo)
     {
         DB::beginTransaction();
-
         try {
+            $course = $courseVideo->course;
             $courseVideo->delete();
             DB::commit();
-            return redirect()->route('admin.courses.show', $courseVideo->course_id);
+            return redirect()->route('admin.courses.show', $course->slug);
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->route('admin.courses.show', $courseVideo->course_id)->with('error', 'Data gagal dihapus');
+            return redirect()->route('admin.courses.show', $course->slug)->with('error', 'Data gagal dihapus');
         }
-    }
+    }    
 }
