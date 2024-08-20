@@ -102,7 +102,18 @@
     </section>
     <section id="Video-Resources" class="flex flex-col mt-5">
         <div class="max-w-[1100px] w-full mx-auto flex flex-col gap-3">
-            <h1 class="title font-extrabold text-[30px] leading-[45px]">{{$course->name}}</h1>
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="title font-extrabold text-[30px] leading-[45px]">{{$course->name}}</h1>
+                </div>
+                @if (!$hasPaid)
+                    <div class="p-[12px_16px] bg-[#3525B3] rounded-full">
+                        <a href="{{ route('front.checkout', $course->id) }}" class="block w-[300px] h-[30px] text-xl font-semibold text-white text-center flex items-center justify-center">
+                            Checkout
+                        </a>
+                    </div>                               
+                @endif
+            </div>                                              
             <div class="flex items-center gap-5">
                 <div class="flex items-center gap-[6px]">
                     <div>
@@ -127,14 +138,7 @@
                         <img src="{{asset('assets/icon/brifecase-tick.svg')}}" alt="icon">
                     </div>
                     <p class="font-semibold">Job-Guarantee</p>
-                </div>
-                <div class="p-4 flex justify-center">
-                    @if (!$hasPaid)
-                        <a href="{{ route('front.checkout', $course->id) }}" class="px-8 py-3 text-black font-bold rounded-full transition duration-300">
-                            Checkout
-                        </a>
-                    @endif
-                </div>                
+                </div>                          
             </div>
         </div>
         <div class="max-w-[1100px] w-full mx-auto mt-10 tablink-container flex gap-3 px-4 sm:p-0 no-scrollbar overflow-x-scroll">
