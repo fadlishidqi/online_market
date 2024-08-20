@@ -8,22 +8,28 @@ use App\Models\CourseStudent;
 use App\Models\SubscribeTransaction;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        // Mengambil jumlah total kursus
-        $courses = Course::count();
+        $coursesCount = Course::count();
+        $studentsCount = CourseStudent::distinct('user_id')->count('user_id');
+        $categoriesCount = Category::count();
+        $teachersCount = Teacher::count();
 
-        // Menghitung jumlah siswa unik untuk semua kursus
-        $students = CourseStudent::distinct('user_id')->count('user_id');
+        // Mendapatkan user yang sedang login
+        $user = Auth::user();
 
-        // Menghitung jumlah kategori, transaksi, dan guru
-        $categories = Category::count();
-        
-        $teachers = Teacher::count();
+        // Mendapatkan kursus yang sudah dibayar oleh user jika dia memiliki peran 'student'
+        $paidCourses = collect();
 
-        return view('dashboard', compact('categories', 'courses', 'students', 'teachers'));
+        if ($user->hasRole('student')) {
+            $paidCourses = $user->courses()->wherePivot('is_paid', true)->get();
+        }
+
+        return view('dashboard', compact('categoriesCount', 'coursesCount', 'studentsCount', 'teachersCount', 'paidCourses'));
     }
+
 }

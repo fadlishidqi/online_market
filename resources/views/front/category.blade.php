@@ -64,7 +64,7 @@
                 <p class="text-[#6D7786] text-lg -tracking-[2%]">Catching up the on demand skills and high paying career this year</p>
             </div>
             <div class="grid grid-cols-3 gap-[30px] w-full">
-                @forelse ($courses as $course)
+                @forelse ($sortedCourses as $course)
                 <div class="course-card">
                     <div class="flex flex-col rounded-t-[12px] rounded-b-[24px] gap-[32px] bg-white w-full pb-[10px] overflow-hidden ring-1 ring-[#DADEE4] transition-all duration-300 hover:ring-2 hover:ring-[#FF6129]">
                         <a href="{{ route('front.details', $course->slug) }}" class="thumbnail w-full h-[200px] shrink-0 rounded-[10px] overflow-hidden">

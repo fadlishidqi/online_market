@@ -132,7 +132,7 @@
             </button>
             <div id="course-slider" class="w-full">
 
-                @forelse($courses as $course)
+                @forelse($sortedCourses as $course)
                 <div class="course-card w-1/3 px-3 pb-[70px] mt-[2px]">
                     <div class="flex flex-col rounded-t-[12px] rounded-b-[24px] gap-[30px] bg-white w-full pb-[10px] overflow-hidden transition-all duration-300 hover:ring-2 hover:ring-[#FF6129]">
                         <a href="{{ route('front.details', $course->slug) }}" class="thumbnail w-full h-[200px] shrink-0 rounded-[10px] overflow-hidden">
@@ -141,7 +141,6 @@
                         <div class="flex flex-col px-4 gap-[10px]">
                             <a href="{{ route('front.details', $course->slug) }}" class="font-semibold text-lg line-clamp-2 hover:line-clamp-none min-h-[40px]">{{ $course->name }}</a>
                             
-                            <!-- Tambahkan harga asli dan diskon di sini -->
                             <div class="flex items-center gap-2">
                                 @if ($course->hasPaid)
                                     <p class="text-lg font-semibold" style="color: rgb(7, 141, 7);">JOINED</p>
@@ -189,9 +188,9 @@
                         </div>
                     </div>
                 </div>
-                @empty
-                <p>Coming Soon</p>
-                @endforelse
+            @empty
+            <p>Coming Soon</p>
+            @endforelse
 
             </div>
         </div>

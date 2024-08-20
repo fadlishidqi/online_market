@@ -10,28 +10,52 @@ use Illuminate\Support\Facades\Auth;
 class FrontController extends Controller
 {
     public function index() {
+        $user = Auth::user();
         $categories = Category::all();
         $courses = Course::with('students')->get();
-        $user = Auth::user();
+    
+        $unpaidCourses = collect();
+        $paidCourses = collect();
     
         foreach ($courses as $course) {
             $course->hasPaid = $user ? $user->courses()->where('course_id', $course->id)->wherePivot('is_paid', true)->exists() : false;
+    
+            if ($course->hasPaid) {
+                $paidCourses->push($course);
+            } else {
+                $unpaidCourses->push($course);
+            }
         }
     
-        return view('front.index', compact('categories', 'courses'));
-    }
+        // Gabungkan kursus yang belum dibayar terlebih dahulu
+        $sortedCourses = $unpaidCourses->merge($paidCourses);
+    
+        return view('front.index', compact('categories', 'sortedCourses'));
+    }    
        
 
     public function category(Category $category)
     {
-        $courses = $category->courses()->with('students')->get();
         $user = Auth::user();
+        $courses = $category->courses()->with('students')->get();
+
+        $unpaidCourses = collect();
+        $paidCourses = collect();
 
         foreach ($courses as $course) {
             $course->hasPaid = $user ? $user->courses()->where('course_id', $course->id)->wherePivot('is_paid', true)->exists() : false;
+    
+            if ($course->hasPaid) {
+                $paidCourses->push($course);
+            } else {
+                $unpaidCourses->push($course);
+            }
         }
+    
+        // Gabungkan kursus yang belum dibayar terlebih dahulu
+        $sortedCourses = $unpaidCourses->merge($paidCourses);
 
-        return view('front.category', compact('courses', 'category'));
+        return view('front.category', compact('courses', 'category', 'sortedCourses'));
     }
 
     public function details(Course $course)
