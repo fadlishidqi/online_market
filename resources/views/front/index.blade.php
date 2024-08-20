@@ -143,8 +143,12 @@
                             
                             <!-- Tambahkan harga asli dan diskon di sini -->
                             <div class="flex items-center gap-2">
-                                <p class="text-lg line-through" style="color: red; text-decoration: line-through; animation: blink 1s steps(5, start) infinite;">Rp. {{ number_format($course->price * 2, 0, ',', '.') }}</p>
-                                <p class="text-lg font-semibold" style="color: rgb(7, 141, 7);">Rp. {{ number_format($course->price, 0, ',', '.') }}</p>
+                                @if ($course->hasPaid)
+                                    <p class="text-lg font-semibold" style="color: rgb(7, 141, 7);">JOINED</p>
+                                @else
+                                    <p class="text-lg line-through" style="color: red; text-decoration: line-through; animation: blink 1s steps(5, start) infinite;">Rp. {{ number_format($course->price * 2, 0, ',', '.') }}</p>
+                                    <p class="text-lg font-semibold" style="color: rgb(7, 141, 7);">Rp. {{ number_format($course->price, 0, ',', '.') }}</p>
+                                @endif
                             </div>
 
                             <style>
@@ -156,12 +160,12 @@
                                         opacity: 0;
                                     }
                                 }
-                            
+
                                 .blink {
                                     animation: blink 1s linear infinite;
                                 }
                             </style>                            
-                                
+
                             <div class="flex justify-between items-center">
                                 <div class="flex items-center gap-[2px]">
                                     @for ($i = 0; $i < 5; $i++)
@@ -172,6 +176,7 @@
                                 </div>
                                 <p class="text-right text-[#6D7786]">{{ $course->students->count() }} students</p>
                             </div>
+                    
                             <div class="flex items-center gap-2">
                                 <div class="w-8 h-8 flex shrink-0 rounded-full overflow-hidden">
                                     <img src="{{ Storage::url($course->teacher->user->avatar) }}" class="w-full h-full object-cover" alt="icon">

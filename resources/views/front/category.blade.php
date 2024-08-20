@@ -32,9 +32,9 @@
             <div class="flex gap-[10px] items-center">
                 <div class="flex flex-col items-end justify-center">
                     <p class="font-semibold text-white">{{Auth::user()->name}}</p>
-                    @if(Auth::user()->hasActiveSubscription())
-                    <p class="p-[2px_10px] rounded-full bg-[#FF6129] font-semibold text-xs text-white text-center">PRO</p>
-                    @endif
+                    
+                    {{-- <p class="p-[2px_10px] rounded-full bg-[#FF6129] font-semibold text-xs text-white text-center">PRO</p> --}}
+                    
                 </div>
                 <div class="w-[56px] h-[56px] overflow-hidden rounded-full flex shrink-0">
                     <a href="{{route('dashboard')}}">
@@ -55,7 +55,7 @@
         <div class="flex flex-col gap-[30px]">
             <div class="gradient-badge w-fit p-[8px_16px] rounded-full border border-[#FED6AD] flex items-center gap-[6px]">
                 <div>
-                    <img src="{{asset('{{asset('assets/icon/medal-star.svg')}}')}}" alt="icon">
+                    <img src="{{asset('assets/icon/medal-star.svg')}}" alt="icon">
                 </div>
                 <p class="font-medium text-sm text-[#FF6129]">Top Categories</p>
             </div>
@@ -76,10 +76,14 @@
 
                                 <!-- Tambahkan harga asli dan diskon di sini -->
                                 <div class="flex items-center gap-2">
-                                    <p class="text-lg line-through" style="color: red; text-decoration: line-through; animation: blink 1s steps(5, start) infinite;">Rp. {{ number_format($course->price * 2, 0, ',', '.') }}</p>
-                                    <p class="text-lg font-semibold" style="color: rgb(7, 141, 7);">Rp. {{ number_format($course->price, 0, ',', '.') }}</p>
+                                    @if ($course->hasPaid)
+                                        <p class="text-lg font-semibold" style="color: rgb(7, 141, 7);">JOINED</p>
+                                    @else
+                                        <p class="text-lg line-through" style="color: red; text-decoration: line-through; animation: blink 1s steps(5, start) infinite;">Rp. {{ number_format($course->price * 2, 0, ',', '.') }}</p>
+                                        <p class="text-lg font-semibold" style="color: rgb(7, 141, 7);">Rp. {{ number_format($course->price, 0, ',', '.') }}</p>
+                                    @endif
                                 </div>
-
+    
                                 <style>
                                     @keyframes blink {
                                         0%, 100% {
@@ -89,22 +93,23 @@
                                             opacity: 0;
                                         }
                                     }
-                                
+    
                                     .blink {
                                         animation: blink 1s linear infinite;
                                     }
-                                </style>
-                                
+                                </style>                            
+    
                                 <div class="flex justify-between items-center">
                                     <div class="flex items-center gap-[2px]">
                                         @for ($i = 0; $i < 5; $i++)
-                                        <div>
-                                            <img src="{{ asset('assets/icon/star.svg') }}" alt="star">
-                                        </div>
+                                            <div>
+                                                <img src="{{asset('assets/icon/star.svg')}}" alt="star">
+                                            </div>
                                         @endfor
                                     </div>
                                     <p class="text-right text-[#6D7786]">{{ $course->students->count() }} students</p>
                                 </div>
+                                
                             </div>
                             <div class="flex items-center gap-2">
                                 <div class="w-8 h-8 flex shrink-0 rounded-full overflow-hidden">

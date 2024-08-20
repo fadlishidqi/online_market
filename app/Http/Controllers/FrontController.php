@@ -11,14 +11,26 @@ class FrontController extends Controller
 {
     public function index() {
         $categories = Category::all();
-        $courses = Course::all();
-        return view('front.index', compact('categories', 'courses'));
-    }   
-
-    public function category(Category $category){
-        // Ambil data kursus berdasarkan kategori
-        $courses = $category->courses()->get();
+        $courses = Course::with('students')->get();
+        $user = Auth::user();
     
+        foreach ($courses as $course) {
+            $course->hasPaid = $user ? $user->courses()->where('course_id', $course->id)->wherePivot('is_paid', true)->exists() : false;
+        }
+    
+        return view('front.index', compact('categories', 'courses'));
+    }
+       
+
+    public function category(Category $category)
+    {
+        $courses = $category->courses()->with('students')->get();
+        $user = Auth::user();
+
+        foreach ($courses as $course) {
+            $course->hasPaid = $user ? $user->courses()->where('course_id', $course->id)->wherePivot('is_paid', true)->exists() : false;
+        }
+
         return view('front.category', compact('courses', 'category'));
     }
 
